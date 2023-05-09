@@ -33,7 +33,7 @@ Reduce damage diseases has done, especially in less developed countries. It also
 Using AI for human health might not be optimal for some users since they might fear trusting and risking their health to AI. To have an effective AI, medical information of patients may need to be used for better analysis.
 
 ### Cybersecurity
-
+Cybersecurity is essential in our application to protect the confidentiality, integrity, and availability of sensitive data in our application which can be targeted by cybercriminals seeking to steal, manipulate, or destroy the data. For example, our web app will have an SQL backend, hence we need to use sanitization methods to prevent SQL injection and other possible attacks.
 
 
 ### Credits
