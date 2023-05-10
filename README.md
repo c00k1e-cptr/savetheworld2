@@ -27,28 +27,29 @@ Cybersecurity is essential in our application to protect the confidentiality, in
 SQL structure:
 ```
 users <TABLE>
-- id INTEGER PRIMARY KEY AUTOINCREMENT,
-- username TEXT,
-- password TEXT,
-- first_name TEXT,
-- last_name TEXT,
-- age INTEGER,
-- height INTEGER,
-- weight INTEGER,
-- gender FLOAT,
+- id INTEGER PRIMARY KEY AUTOINCREMENT
+- username TEXT
+- password TEXT
+- first_name TEXT
+- last_name TEXT
+- age INTEGER
+- height INTEGER
+- weight INTEGER
+- gender FLOAT
 
 results <TABLE>
-- id INTEGER PRIMARY KEY AUTOINCREMENT,
-- username TEXT,
-- test_name TEXT,
-- result FLOAT,
+- id INTEGER PRIMARY KEY AUTOINCREMENT
+- username TEXT
+- test_name TEXT
+- result FLOAT
+- date TEXT
 ```
 
-By: [Jerome](https://github.com/jeromepalayoor), [Chuong](https://github.com/hollowcrust), [Daryl](https://github.com/cutekittens123)
+By: [Jerome](https://github.com/jeromepalayoor), [Chuong](https://github.com/hollowcrust) and [Daryl](https://github.com/cutekittens123) of Class 24/14 ASRJC
 
 ### Credits
-- [ncbi.nlm.nih.gov](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7120372/)
-- [frontiersin.org](https://www.frontiersin.org/articles/10.3389/fdgth.2020.00006/full)
-- [diabetes dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset)
-- [cdc.gov](https://www.cdc.gov/diabetes/library/spotlights/diabetes-facts-stats.html)
+- [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7120372/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7120372/)
+- [https://www.frontiersin.org/articles/10.3389/fdgth.2020.00006/full](https://www.frontiersin.org/articles/10.3389/fdgth.2020.00006/full)
+- [https://www.cdc.gov/diabetes/library/spotlights/diabetes-facts-stats.html](https://www.cdc.gov/diabetes/library/spotlights/diabetes-facts-stats.html)
+- [iammustafatz/diabetes-prediction-dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset)
 - [ML SKlearn model bruteforce code](https://github.com/beanbeah/ML/blob/main/sklearn-ml-bruteforce.py) by [Sean](https://github.com/beanbeah)

@@ -3,21 +3,11 @@ from secret import admin_password
 
 database = 'database.db'
 
+
 def create_table_users():
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
-    cursor.execute("""
-            CREATE TABLE IF NOT EXISTS USERS (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT,
-            password TEXT,
-            first_name TEXT,
-            last_name TEXT,
-            age INTEGER,
-            height INTEGER,
-            weight INTEGER,
-            gender FLOAT,
-            )""")
+    cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, first_name TEXT, last_name TEXT, age INTEGER, height INTEGER, weight INTEGER, gender FLOAT);")
     conn.commit()
     conn.close()
 
@@ -26,12 +16,7 @@ def create_table_results():
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
     cursor.execute(
-        """CREATE TABLE IF NOT EXISTS results (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT,
-            test_name TEXT,
-            result FLOAT,
-            )""")
+        """CREATE TABLE IF NOT EXISTS results (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, test_name TEXT, result FLOAT, date TEXT)""")
     conn.commit()
     conn.close()
 
@@ -39,7 +24,8 @@ def create_table_results():
 def insert_user(username, password):
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+    cursor.execute(
+        'INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
     conn.commit()
     conn.close()
 
@@ -94,5 +80,6 @@ def preload():
     create_table_results()
     insert_user('admin', admin_password)
     print(get_all_user_data())
+
 
 preload()
