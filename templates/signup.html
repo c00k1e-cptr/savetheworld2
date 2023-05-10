@@ -7,6 +7,53 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <form action="/signup" method="post">
+        <label for="username">Username: </label>
+        <input type="text" name="username" placeholder="username" autofocus required>
+        <br>
+        <br>
+        <label for="password">Password: </label>
+        <input type="password" name="password" placeholder="password" required>
+        <br>
+        <br>
+        <label for="password">Confirm Password: </label>
+        <input type="password" name="confirm_password" placeholder="confirm password" required>
+        <br>
+        <br>
+        <label for="password">First Name: </label>
+        <input type="text" name="first_name" placeholder="first_name" required>
+        <br>
+        <br>
+        <label for="password">Last Name: </label>
+        <input type="text" name="last_name" placeholder="last_name" required>
+        <br>
+        <br>
+        <label for="password">Age: </label>
+        <input type="number" name="age" placeholder="age" required>
+        <br>
+        <br>
+        <label for="password">Height: </label>
+        <input type="number" name="height" placeholder="height in centimetres" required>
+        <br>
+        <br>
+        <label for="password">Weight: </label>
+        <input type="number" name="weight" placeholder="weight in kg" required>
+        <br>
+        <br>
+        <label for="password">Gender: </label>
+        <select name="gender" required>
+            <option value="cannot choose this">Select an option</option>
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+            <option value="0.5">Others</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Signup">
+    </form>
+    <br>
+    <br>
+    <a href="/login">Already have an account? Login here</a>
+    <br><br>
+    <p style="color:red;">{{ error }}</p>
 </body>
 </html>

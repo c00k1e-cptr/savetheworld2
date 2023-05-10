@@ -189,7 +189,7 @@ def train_models():
                     'current': 1, 'former': 0.25, 'not current': 0.75}
     data.smoking_history = [smokingtypes[x] for x in data.smoking_history]
 
-    # <removed gender>,age,hypertension,heart_disease,<removed smoking_history>,bmi,HbA1c_level,blood_glucose_level,diabetes
+    # <removed gender>, age ,<removed hypertension>,<removed heart_disease>,<removed smoking_history>,<removed bmi>, HbA1c_level , blood_glucose_level
     features = ['age', 'HbA1c_level', 'blood_glucose_level']
 
     X = data[features]

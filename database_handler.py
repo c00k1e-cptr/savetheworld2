@@ -1,5 +1,6 @@
 import sqlite3
-from secret import admin_password
+from secret import admin_password, salt
+from hashlib import sha256
 
 database = 'database.db'
 
@@ -21,11 +22,11 @@ def create_table_results():
     conn.close()
 
 
-def insert_user(username, password):
+def insert_user(username, password, first_name, last_name, age, height, weight, gender):
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
     cursor.execute(
-        'INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+        'INSERT INTO users (username, password, first_name, last_name, age, height, weight, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', (username, password, first_name, last_name, age, height, weight, gender))
     conn.commit()
     conn.close()
 
@@ -42,10 +43,13 @@ def get_user(username):
 def get_all_users():
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
-    cursor.execute('SELECT username FROM users')
+    cursor.execute('SELECT username, password FROM users')
     users = cursor.fetchall()
     conn.close()
-    return users
+    tmp = {}
+    for user in users:
+        tmp[user[0]] = user[1]
+    return tmp
 
 
 def update_user(id, username, password):
@@ -78,8 +82,8 @@ def get_all_user_data():
 def preload():
     create_table_users()
     create_table_results()
-    insert_user('admin', admin_password)
+    insert_user('admin', sha256((admin_password+salt).encode('utf-8')).hexdigest(), 'admin', 'admin', 0, 0, 0, 0)
     print(get_all_user_data())
 
 
-preload()
+# preload()
