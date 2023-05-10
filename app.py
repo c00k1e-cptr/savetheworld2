@@ -13,15 +13,26 @@ def index():
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
+        session.pop('user', None)
         username = request.form['username']
         password = request.form['password']
-
-        return redirect(url_for('profile'))
+        user = users.get(username)
+        print(user)
+        if user and user == password:
+            session['user'] = username
+            return redirect(url_for('profile'))
+        return redirect(url_for('login'))
+    if session.get('user'):
+            username = session['user']
+            print(username)
+            return redirect(url_for('profile'))
     return render_template('login.html')
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    if session.get('user'):
+        return render_template('profile.html', user=session['user'])
+    return redirect(url_for('login'))
 
 @app.errorhandler(404)
 def page_not_found(error):

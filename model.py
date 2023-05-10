@@ -180,7 +180,7 @@ def test_regressors(X_train, X_test, y_train, y_test):
 
 def train_models():
     # get data
-    data = pd.read_csv("diabetes_prediction_dataset.csv")
+    data = pd.read_csv("diabetes_dataset.csv")
 
     # prepocess
     gendertypes = {'Male': 0, 'Female': 1, 'Other': 0.5}
