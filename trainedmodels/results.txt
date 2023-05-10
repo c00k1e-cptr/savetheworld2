@@ -1,0 +1,62 @@
+------------------------------------------------------------
+Results (larger accuracy better): 
+01 AdaBoost 97.54%
+02 GradientBoosting 97.54%
+03 RandomForest 97.54%
+04 HistGradientBoosting 97.54%
+05 ExtraTrees (Gini) 97.48%
+06 ExtraTrees (Entropy) 97.48%
+07 DecisionTree 97.48%
+08 ExtraTree 97.40%
+09 Bagging 97.33%
+10 CategoricalNaiveBayes 97.15%
+11 KNeighbors 96.55%
+12 SGDClassifier 95.98%
+13 GaussianNaiveBayes 95.91%
+14 PassiveAggressive 95.52%
+15 Ridge 94.28%
+16 BernoulliNaiveBayes 92.39%
+17 MultinomialNaiveBayes 92.39%
+18 NearestCentroid 85.55%
+19 ComplementNaiveBayes 53.67%
+------------------------------------------------------------
+
+------------------------------------------------------------
+Results (smaller error better): 
+01 GradientBoosting (abs err) 2.46%
+02 Bagging 4.59%
+03 DecisionTree 4.60%
+04 Extra Tree 4.60%
+05 HistGradientBoosting (poisson) 4.72%
+06 HistGradientBoosting (sq err) 4.73%
+07 KNeighbors 4.95%
+08 GradientBoosting (sq err) 5.07%
+09 AdaBoost (square) 5.07%
+10 AdaBoost (linear) 5.07%
+11 Random Forest (sq err) 5.17%
+12 Random Forest (poisson) 5.17%
+13 GradientBoosting (huber) 7.61%
+14 HistGradientBoosting (abs err) 7.61%
+15 Quantile (highs-ipm) 7.61%
+16 RANSAC 7.61%
+17 Linear SVR (epsilon_insensitive) 7.61%
+18 PoissonRegressor 10.44%
+19 Adaboost (exponential) 11.23%
+20 TweedieRegressor (log) 12.41%
+21 Elastic Net (random) 14.54%
+22 Elastic Net (cyclic) 14.54%
+23 SGDRegressor (l2) 15.36%
+24 BayesianRidge 15.37%
+25 Linear SVR (squared_epsilon_insensitive) 15.37%
+26 Ridge (Linear) 15.37%
+27 RidgeCV 15.37%
+28 Linear 15.37%
+29 PLS 15.37%
+30 SGDRegressor (elasticnet) 15.39%
+31 SGDRegressor (l1) 15.45%
+32 OrthogonalMatchingPursuit 15.45%
+33 PassiveAggressiveRegressor (squared_epsilon_insensitive) 15.61%
+34 PassiveAggressiveRegressor (epsilon_insensitive) 15.61%
+35 ARD 16.09%
+36 MLP 19.11%
+------------------------------------------------------------

@@ -2,28 +2,26 @@
 
 import pickle
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
+
 from sklearn.ensemble import AdaBoostClassifier, BaggingClassifier, ExtraTreesClassifier, GradientBoostingClassifier, RandomForestClassifier, HistGradientBoostingClassifier
-from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.linear_model import PassiveAggressiveClassifier, RidgeClassifier, SGDClassifier
 from sklearn.naive_bayes import BernoulliNB, CategoricalNB, ComplementNB, GaussianNB, MultinomialNB
-from sklearn.neighbors import KNeighborsClassifier, RadiusNeighborsClassifier, NearestCentroid
-from sklearn.neural_network import MLPClassifier
-from sklearn.semi_supervised import LabelPropagation
-from sklearn.svm import LinearSVC, NuSVC, SVC
+from sklearn.neighbors import KNeighborsClassifier, NearestCentroid
 from sklearn.tree import DecisionTreeClassifier, ExtraTreeClassifier
-from sklearn.ensemble import AdaBoostRegressor, BaggingRegressor, ExtraTreesRegressor, GradientBoostingRegressor, RandomForestRegressor, HistGradientBoostingRegressor
-from sklearn.svm import SVR, LinearSVR, NuSVR
-from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.linear_model import LassoLarsIC, GammaRegressor, TweedieRegressor, BayesianRidge, ARDRegression,  LinearRegression, Ridge, RidgeCV, SGDRegressor, ElasticNet, HuberRegressor, QuantileRegressor, RANSACRegressor, TheilSenRegressor, PoissonRegressor, PassiveAggressiveRegressor, OrthogonalMatchingPursuit
-from sklearn.neighbors import KNeighborsRegressor, RadiusNeighborsRegressor
+
+from sklearn.ensemble import AdaBoostRegressor, BaggingRegressor, GradientBoostingRegressor, RandomForestRegressor, HistGradientBoostingRegressor
+from sklearn.svm import SVR, LinearSVR
+from sklearn.linear_model import TweedieRegressor, BayesianRidge, ARDRegression,  LinearRegression, Ridge, RidgeCV, SGDRegressor, ElasticNet, QuantileRegressor, RANSACRegressor, PoissonRegressor, PassiveAggressiveRegressor, OrthogonalMatchingPursuit
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor, ExtraTreeRegressor
-from sklearn.kernel_ridge import KernelRidge
-from sklearn.cross_decomposition import PLSRegression, PLSCanonical
+from sklearn.cross_decomposition import PLSRegression
 
 classifiers = {
     "AdaBoost": AdaBoostClassifier(n_estimators=100, random_state=0),
@@ -123,12 +121,16 @@ def test_classifiers(X_train, X_test, y_train, y_test):
     accuracy = {k: v for k, v in sorted(
         accuracy.items(), key=lambda item: item[1], reverse=True)}
 
-    print("\nResults (larger accuracy better): ")
+    returning = "---"*20
+    returning += "\nResults (larger accuracy better): "
+
     i = 1
     for key in accuracy:
-        print(str(i).zfill(2) + ' ' + key + ' ' +
-              '{:.2f}'.format(accuracy[key]) + '%')
+        returnin = str(i).zfill(2) + ' ' + key + ' ' + '{:.2f}'.format(accuracy[key]) + '%'
+        returning += "\n" + returnin
         i += 1
+    returning += "\n" + "---"*20
+    return returning
 
 
 def test_regressor(regressor_type, X_train, X_test, y_train, y_test):
@@ -163,15 +165,20 @@ def test_regressors(X_train, X_test, y_train, y_test):
         mae[value[0]] = value[1]
     mae = {k: v for k, v in sorted(
         mae.items(), key=lambda item: item[1], reverse=False)}
-    print("\nResults (smaller error better): ")
+    returning = "\n\n"
+    returning += "---"*20
+    returning += "\nResults (smaller error better): "
     i = 1
     for key in mae:
-        print(str(i).zfill(2) + ' ' + key + ' ' +
-              '{:.2f}'.format(mae[key]) + '%')
+        returnin = "\n" + (str(i).zfill(2) + ' ' + key + ' ' +
+                    '{:.2f}'.format(mae[key]) + '%')
+        returning += returnin
         i += 1
+    returning += "\n" + "---"*20
+    return returning
 
 
-def main():
+def train_models():
     # get data
     data = pd.read_csv("diabetes_prediction_dataset.csv")
 
@@ -182,17 +189,37 @@ def main():
                     'current': 1, 'former': 0.25, 'not current': 0.75}
     data.smoking_history = [smokingtypes[x] for x in data.smoking_history]
 
-    # gender,age,hypertension,heart_disease,smoking_history,bmi,HbA1c_level,blood_glucose_level,diabetes
-    features = ['gender', 'age', 'hypertension', 'heart_disease',
-                'smoking_history', 'bmi', 'HbA1c_level', 'blood_glucose_level']
+    # >removed gender>,age,hypertension,heart_disease,<removed smoking_history>,bmi,HbA1c_level,blood_glucose_level,diabetes
+    features = ['age', 'HbA1c_level', 'blood_glucose_level']
 
     X = data[features]
     y = data.diabetes
 
+    plt.matshow(data.corr())
+    plt.xticks(range(data.shape[1]), data.columns, fontsize=11, rotation=90)
+    plt.yticks(range(data.shape[1]), data.columns, fontsize=11)
+    cb = plt.colorbar()
+    cb.ax.tick_params(labelsize=14)
+    plt.title('Correlation Matrix', fontsize=16)
+    plt.show()
+
     Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size=0.1)
 
-    test_classifiers(Xtrain, Xtest, ytrain, ytest)
-    test_regressors(Xtrain, Xtest, ytrain, ytest)
+    output = ""
+    output += test_classifiers(Xtrain, Xtest, ytrain, ytest)
+    output += test_regressors(Xtrain, Xtest, ytrain, ytest)
+    print(output)
+    with open("trainedmodels/results.txt", "w") as f:
+        f.write(output)
 
-main()
+def predict(inputs):
+    # age,  HbA1c_level,  blood_glucose_level
+    with open('trainedmodels/regressors/GradientBoosting (abs err).pkl', 'rb') as f:
+        clf = pickle.load(f)
+    outputs = clf.predict(inputs)
+    return outputs
 
+# inputs = [[80, 7.0, 150]]
+# print(predict(inputs))
+
+# train_models()
