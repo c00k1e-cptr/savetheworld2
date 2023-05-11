@@ -50,11 +50,11 @@ def get_all_users():
     return tmp
 
 
-def update_user(id, username, password):
+def update_user(username, password, first_name, last_name, age, height, weight, gender):
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
     cursor.execute(
-        'UPDATE users SET username = ?, password = ? WHERE username = ?', (username, password, username))
+        'UPDATE users SET password = ?, first_name = ?, last_name = ?, age = ?, height = ?, weight = ?, gender = ? WHERE username = ?', (password, first_name, last_name, age, height, weight, gender, username))
     conn.commit()
     conn.close()
 

@@ -104,10 +104,60 @@ def signup():
             return redirect(url_for('me'))
     return render_template('signup.html', error=None)
 
-@app.route('/me')
+@app.route('/me', methods=['GET','POST'])
 def me():
+    if request.method == 'POST':
+        username = session['user']
+        if not username:
+            return render_template('profile.html', error='Error updating profile')
+        user = get_user(username)
+        password = sha256((request.form['password']+salt).encode('utf-8')).hexdigest()
+        if not request.form['password']:
+            return render_template('profile.html', user=user, error='Password cannot be empty')
+        confirm_password = sha256((request.form['confirm_password']+salt).encode('utf-8')).hexdigest()
+        if not request.form['confirm_password']:
+            return render_template('profile.html', user=user, error='Confirm Password cannot be empty')
+        if password != confirm_password:
+            return render_template('profile.html', user=user, error='Passwords do not match')
+        first_name = request.form['first_name']
+        if not first_name:
+            return render_template('profile.html', user=user, error='First name cannot be empty')
+        last_name = request.form['last_name']
+        if not last_name:
+            return render_template('profile.html', user=user, error='Last name cannot be empty')
+        age = request.form['age']
+        if age:
+            try:
+                age = int(age)
+            except:
+                return render_template('profile.html', user=user, error='Age must be an number')
+        else:
+            return render_template('profile.html', user=user, error='Age cannot be empty')
+        height = request.form['height']
+        if height:
+            try:
+                height = int(height)
+            except:
+                return render_template('profile.html', user=user, error='Height must be an number in centimeters')
+        else:
+            return render_template('profile.html', user=user, error='Height cannot be empty')
+        weight = request.form['weight']
+        if weight:
+            try:
+                weight = int(weight)
+            except:
+                return render_template('profile.html', user=user, error='Weight must be an number in kilograms')
+        else:
+            return render_template('profile.html', user=user, error='Weight cannot be empty')
+        gender = request.form['gender']
+        if not (gender == '1' or gender == '0' or gender == '0.5' or gender == '0.0' or gender == '1.0'):
+            return render_template('profile.html', user=user, error='Invalid gender')
+        update_user(username, password, first_name, last_name, age, height, weight, gender)
+        user = get_user(username)
+        return render_template('profile.html', user=user, error="Updated successfully")
     if session.get('user'):
-        return render_template('profile.html', user=session['user'])
+        user  = get_user(session['user'])
+        return render_template('profile.html', user=user, error=None)
     return redirect(url_for('login'))
 
 @app.errorhandler(404)
@@ -115,4 +165,4 @@ def page_not_found(error):
     return render_template('404.html'), 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host="0.0.0.0")
