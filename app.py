@@ -20,17 +20,25 @@ def login():
     if request.method == 'POST':
         session.pop('user', None)
         username = request.form['username']
+        if not username:
+            return render_template('login.html', error='Username cannot be empty')
         password = request.form['password']
+        if not password:
+            return render_template('login.html', error='Password cannot be empty')
         users = get_all_users()
         user = users.get(username)
-        if user and user ==  sha256((password+salt).encode('utf-8')).hexdigest():
-            session['user'] = username
-            return redirect(url_for('me'))
-        return redirect(url_for('login'))
+        if user:
+            if user ==  sha256((password+salt).encode('utf-8')).hexdigest():
+                session['user'] = username
+                return redirect(url_for('me'))
+            else:
+                return render_template('login.html', error='Incorrect password')
+        else:
+            return render_template('login.html', error='User does not exist')
     if session.get('user'):
             username = session['user']
             return redirect(url_for('me'))
-    return render_template('login.html')
+    return render_template('login.html', error=None)
 
 @app.route('/logout')
 def logout():
