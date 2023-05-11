@@ -39,7 +39,7 @@ users <TABLE>
 
 results <TABLE>
 - id INTEGER PRIMARY KEY AUTOINCREMENT
-- username TEXT
+- username TEXT FOREIGN KEY
 - test_name TEXT
 - result FLOAT
 - date TEXT

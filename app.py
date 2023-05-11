@@ -6,7 +6,7 @@ from hashlib import sha256
 
 app = Flask(__name__)
 app.secret_key = secret_key
-app.permanent_session_lifetime = timedelta(minutes=20)
+app.permanent_session_lifetime = timedelta(minutes=30)
 
 @app.route('/')
 def index():

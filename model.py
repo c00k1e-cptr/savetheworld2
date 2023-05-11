@@ -219,7 +219,10 @@ def predict(inputs):
     outputs = clf.predict(inputs)
     return outputs
 
-# inputs = [[80, 7.0, 150]]
-# print(predict(inputs))
+age = 70
+HbA1c_level = 7.0
+blood_glucose_level = 150
+inputs = [[age, HbA1c_level, blood_glucose_level]]
+print(predict(inputs))
 
 # train_models()
