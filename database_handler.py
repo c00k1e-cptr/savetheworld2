@@ -1,6 +1,4 @@
 import sqlite3
-from secret import admin_password, salt
-from hashlib import sha256
 
 database = 'database.db'
 
@@ -82,7 +80,6 @@ def get_all_user_data():
 def preload():
     create_table_users()
     create_table_results()
-    insert_user('admin', sha256((admin_password+salt).encode('utf-8')).hexdigest(), 'admin', 'admin', 0, 0, 0, 0)
     print(get_all_user_data())
 
 

@@ -41,30 +41,46 @@ def logout():
 def signup():
     if request.method == 'POST':
         username = request.form['username']
+        if not username:
+            return render_template('signup.html', error='Username cannot be empty')
         password = sha256((request.form['password']+salt).encode('utf-8')).hexdigest()
+        if not request.form['password']:
+            return render_template('signup.html', error='Password cannot be empty')
         confirm_password = sha256((request.form['confirm_password']+salt).encode('utf-8')).hexdigest()
+        if not request.form['confirm_password']:
+            return render_template('signup.html', error='Confirm Password cannot be empty')
         if password != confirm_password:
             return render_template('signup.html', error='Passwords do not match')
         first_name = request.form['first_name']
+        if not first_name:
+            return render_template('signup.html', error='First name cannot be empty')
         last_name = request.form['last_name']
+        if not last_name:
+            return render_template('signup.html', error='Last name cannot be empty')
         age = request.form['age']
         if age:
             try:
                 age = int(age)
             except:
                 return render_template('signup.html', error='Age must be an number')
+        else:
+            return render_template('signup.html', error='Age cannot be empty')
         height = request.form['height']
         if height:
             try:
                 height = int(height)
             except:
                 return render_template('signup.html', error='Height must be an number in centimeters')
+        else:
+            return render_template('signup.html', error='Height cannot be empty')
         weight = request.form['weight']
         if weight:
             try:
                 weight = int(weight)
             except:
                 return render_template('signup.html', error='Weight must be an number in kilograms')
+        else:
+            return render_template('signup.html', error='Weight cannot be empty')
         gender = request.form['gender']
         if not (gender == '1' or gender == '0' or gender == '0.5'):
             return render_template('signup.html', error='Invalid gender')
@@ -78,7 +94,7 @@ def signup():
     if session.get('user'):
             username = session['user']
             return redirect(url_for('me'))
-    return render_template('signup.html', error='')
+    return render_template('signup.html', error=None)
 
 @app.route('/me')
 def me():
