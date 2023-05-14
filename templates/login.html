@@ -10,8 +10,25 @@
             crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
+        <style>body{overflow-y: overlay;}</style>
     </head>
     <body>
+        <nav class="navbar navbar-expand-sm bg-body-tertiary bg-dark" data-bs-theme="dark">
+            <div class="container-md container-fluid">
+              <a class="navbar-brand" href="/about">Web App</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav justify-content-end">
+                  <a class="nav-link" href="/me">Dashboard</a>
+                  <a class="nav-link" href="/test">Test</a>
+                  <a class="nav-link active" href="/profile">Profile</a>
+                  <a class="nav-link text-primary-emphasis" href="/login">Login</a>
+                </div>
+              </div>
+            </div>
+          </nav>
         <div class="container-md container-fluid mt-3 mb-3">
             <form action="/login" method="post">
                 <h1>Login</h1>

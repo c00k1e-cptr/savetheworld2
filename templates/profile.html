@@ -10,25 +10,26 @@
             crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Profile</title>
+        <style>body{overflow-y: overlay;}</style>
     </head>
     <body>
-        <nav class="nav">
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled">Disabled</a>
-                </li>
-              </ul>
+        <nav class="navbar navbar-expand-sm bg-body-tertiary bg-dark" data-bs-theme="dark">
+            <div class="container-md container-fluid">
+              <a class="navbar-brand" href="/about">Web App</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav justify-content-end">
+                  <a class="nav-link" href="/me">Dashboard</a>
+                  <a class="nav-link" href="/test">Test</a>
+                  <a class="nav-link active" href="/profile">Profile</a>
+                  <a class="nav-link text-danger-emphasis" href="/logout">Logout</a>
+                </div>
+              </div>
+            </div>
           </nav>
-        <div class="container-md container-fluid mt-3">
+        <div class="container-md container-fluid mt-2 mb-3">
             <form action="/me" method="post">
                 <h1>Profile</h1>
                 {% if error %}

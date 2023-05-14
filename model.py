@@ -189,8 +189,8 @@ def train_models():
                     'current': 1, 'former': 0.25, 'not current': 0.75}
     data.smoking_history = [smokingtypes[x] for x in data.smoking_history]
 
-    # <removed gender>, age ,<removed hypertension>,<removed heart_disease>,<removed smoking_history>,<removed bmi>, HbA1c_level , blood_glucose_level
-    features = ['age', 'HbA1c_level', 'blood_glucose_level']
+    # <removed gender>, age ,<removed hypertension>,<removed heart_disease>,<removed smoking_history>, bmi , HbA1c_level , blood_glucose_level
+    features = ['age', 'bmi', 'HbA1c_level', 'blood_glucose_level']
 
     X = data[features]
     y = data.diabetes
@@ -214,15 +214,9 @@ def train_models():
 
 def predict(inputs):
     # age,  HbA1c_level,  blood_glucose_level
-    with open('trainedmodels/regressors/GradientBoosting (abs err).pkl', 'rb') as f:
+    with open('trainedmodels/classifiers/HistGradientBoosting.pkl', 'rb') as f:
         clf = pickle.load(f)
     outputs = clf.predict(inputs)
     return outputs
-
-age = 70
-HbA1c_level = 7.0
-blood_glucose_level = 150
-inputs = [[age, HbA1c_level, blood_glucose_level]]
-print(predict(inputs))
 
 # train_models()

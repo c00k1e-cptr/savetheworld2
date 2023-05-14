@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>body{overflow-y: overlay;}</style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-body-tertiary bg-dark"
+      data-bs-theme="dark">
+      <div class="container-md container-fluid">
+        <a class="navbar-brand" href="/about">Web App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav justify-content-end">
+            <a class="nav-link" href="/me">Dashboard</a>
+            <a class="nav-link active" href="/test">Test</a>
+            <a class="nav-link" href="/profile">Profile</a>
+            <a class="nav-link text-danger-emphasis" href="/logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container-md container-fluid mt-3 mb-3">
+      {% if not results %}
+      <form action="/test" method="post">
+        <h1>Diabetes Test</h1>
+        {% if error %}
+        <h3 class="text-danger">*{{ error }}*</h3>
+        {% endif %}
+        <label for="age" class="form-label">Age: </label>
+        <input type="number" name="age" placeholder="Enter Age" required
+          class="form-control mb-2" value="{{ user[5] }}">
+
+        <label for="height" class="form-label">Height: </label>
+        <input type="number" name="height" placeholder="Enter Height (cm)"
+          required class="form-control mb-2" value="{{ user[6] }}">
+
+        <label for="weight" class="form-label">Weight: </label>
+        <input type="number" name="weight" placeholder="Enter Weight (kg)"
+          required class="form-control mb-2" value="{{ user[7] }}">
+
+        <label for="hba1c" class="form-label">HbA1c (Hemoglobin A1c) level: </label>
+        <input type="number" step="0.1" name="hba1c" placeholder="Example: 5.5"
+          required class="form-control mb-2">
+        <div class="form-text mb-2 text-info-emphasis">
+          HbA1c (Hemoglobin A1c) level is a measure of a person's average blood sugar level over the past 2-3 months. Higher levels indicate a greater risk of developing diabetes. Mostly more than 6.5% of HbA1c Level indicates diabetes.
+        </div>
+
+        <label for="glucose" class="form-label">Blood glucose level: </label>
+        <input type="number" step="0.1" name="glucose" placeholder="Example: 100.0"
+          required class="form-control mb-2">
+          <div class="form-text mb-2 text-info-emphasis">
+            Blood glucose level refers to the amount of glucose in the bloodstream at a given time. High blood glucose levels are a key indicator of diabetes.
+          </div>
+
+        <button type="submit" class="btn btn-success btn-lg w-100 mt-3">Complete
+          Test</button>
+      </form>
+      {% else %}
+
+      <h1 class="mb-2">Diabetes Test Results</h1>
+      <p class="text-success mt-2 text-lg-start">{{ results|safe }}</p>
+      <br>
+      <p class="mt-5 text-danger">* However, please note that this service is not a doctor, and it's always recommended to consult with a healthcare professional for personalized advice. </p>
+
+      {% endif %}
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    </body>
+  </html>

@@ -10,8 +10,25 @@
             crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up</title>
+        <style>body{overflow-y: overlay;}</style>
     </head>
     <body>
+        <nav class="navbar navbar-expand-sm bg-body-tertiary bg-dark" data-bs-theme="dark">
+            <div class="container-md container-fluid">
+              <a class="navbar-brand" href="/about">Web App</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav justify-content-end">
+                  <a class="nav-link" href="/me">Dashboard</a>
+                  <a class="nav-link" href="/test">Test</a>
+                  <a class="nav-link active" href="/profile">Profile</a>
+                  <a class="nav-link text-primary-emphasis" href="/login">Login</a>
+                </div>
+              </div>
+            </div>
+          </nav>
         <div class="container-md container-fluid mt-3 mb-3">
             <form action="/signup" method="post">
                 <h1>Sign Up</h1>
@@ -39,9 +56,9 @@
                 <input type="number" name="age" placeholder="Enter Age" required
                     class="form-control mb-2">
                 <label for="height" class="form-label">Height: </label>
-                <input type="number" name="height" placeholder="Enter Height in Centimeters" required class="form-control mb-2">
+                <input type="number" name="height" placeholder="Enter Height (cm)" required class="form-control mb-2">
                 <label for="weight" class="form-label">Weight: </label>
-                <input type="number" name="weight" placeholder="Enter Weight in Kilograms" required class="form-control mb-2">
+                <input type="number" name="weight" placeholder="Enter Weight (kg)" required class="form-control mb-2">
                 <label for="gender" class="form-label">Gender: </label>
                 <select name="gender" required class="form-select mb-4">
                     <option value="cannot choose this">Select an option</option>
